@@ -20,6 +20,13 @@ namespace System.Collections.Generic
 
         private readonly TreeSet<KeyValuePair<TKey, TValue>> _set; // Do not rename (binary serialization)
 
+        internal SortedDictionary(SortedSet<KeyValuePair<TKey, TValue>> set)
+        {
+            ArgumentNullException.ThrowIfNull(set);
+
+            _set = new TreeSet<KeyValuePair<TKey, TValue>>(set, set.Comparer);
+        }
+
         public SortedDictionary() : this((IComparer<TKey>?)null)
         {
         }
@@ -266,6 +273,24 @@ namespace System.Collections.Generic
             }
             value = node.Item.Value;
             return true;
+        }
+
+        public TKey? Min => _set.Min.Key;
+
+        public TKey? Max => _set.Max.Key;
+
+        public IEnumerable<KeyValuePair<TKey, TValue>> Reverse() => _set.Reverse();
+
+        public SortedDictionary<TKey, TValue> GetViewBetween(TKey lowerKey, TKey upperKey)
+        {
+            if (Comparer.Compare(lowerKey, upperKey) > 0)
+            {
+                throw new ArgumentException(SR.SortedSet_LowerValueGreaterThanUpperValue, nameof(lowerKey));
+            }
+
+            SortedSet<KeyValuePair<TKey, TValue>> s = _set.GetViewBetween(new(lowerKey, default!), new(upperKey, default!));
+
+            return new SortedDictionary<TKey, TValue>(s);
         }
 
         void ICollection.CopyTo(Array array, int index)
@@ -886,6 +911,8 @@ namespace System.Collections.Generic
         public TreeSet(IComparer<T>? comparer) : base(comparer) { }
 
         internal TreeSet(TreeSet<T> set, IComparer<T>? comparer) : base(set, comparer) { }
+
+        internal TreeSet(SortedSet<T> set, IComparer<T>? comparer) : base(set, comparer) { }
 
         [Obsolete(Obsoletions.LegacyFormatterImplMessage, DiagnosticId = Obsoletions.LegacyFormatterImplDiagId, UrlFormat = Obsoletions.SharedUrlFormat)]
         private TreeSet(SerializationInfo siInfo, StreamingContext context) : base(siInfo, context) { }

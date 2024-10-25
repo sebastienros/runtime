@@ -328,6 +328,8 @@ namespace System.Collections.Generic
         public SortedDictionary(System.Collections.Generic.IDictionary<TKey, TValue> dictionary, System.Collections.Generic.IComparer<TKey>? comparer) { }
         public System.Collections.Generic.IComparer<TKey> Comparer { get { throw null; } }
         public int Count { get { throw null; } }
+        public TKey? Max { get { throw null; } }
+        public TKey? Min { get { throw null; } }
         public TValue this[TKey key] { get { throw null; } set { } }
         public System.Collections.Generic.SortedDictionary<TKey, TValue>.KeyCollection Keys { get { throw null; } }
         bool System.Collections.Generic.ICollection<System.Collections.Generic.KeyValuePair<TKey, TValue>>.IsReadOnly { get { throw null; } }
@@ -359,8 +361,10 @@ namespace System.Collections.Generic
         bool System.Collections.IDictionary.Contains(object key) { throw null; }
         System.Collections.IDictionaryEnumerator System.Collections.IDictionary.GetEnumerator() { throw null; }
         void System.Collections.IDictionary.Remove(object key) { }
+        public System.Collections.Generic.IEnumerable<KeyValuePair<TKey, TValue>> Reverse() { throw null; }
         System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator() { throw null; }
         public bool TryGetValue(TKey key, [System.Diagnostics.CodeAnalysis.MaybeNullWhenAttribute(false)] out TValue value) { throw null; }
+        public System.Collections.Generic.SortedDictionary<TKey, TValue> GetViewBetween(TKey? lowerKey, TKey? upperKey) { throw null; }
         public partial struct Enumerator : System.Collections.Generic.IEnumerator<System.Collections.Generic.KeyValuePair<TKey, TValue>>, System.Collections.IDictionaryEnumerator, System.Collections.IEnumerator, System.IDisposable
         {
             private object _dummy;
@@ -508,7 +512,7 @@ namespace System.Collections.Generic
         public void ExceptWith(System.Collections.Generic.IEnumerable<T> other) { }
         public System.Collections.Generic.SortedSet<T>.Enumerator GetEnumerator() { throw null; }
         protected virtual void GetObjectData(System.Runtime.Serialization.SerializationInfo info, System.Runtime.Serialization.StreamingContext context) { }
-        public virtual System.Collections.Generic.SortedSet<T> GetViewBetween(T? lowerValue, T? upperValue) { throw null; }
+        public virtual System.Collections.Generic.SortedSet<T> GetViewBetween(T lowerValue, T upperValue) { throw null; }
         public virtual void IntersectWith(System.Collections.Generic.IEnumerable<T> other) { }
         public bool IsProperSubsetOf(System.Collections.Generic.IEnumerable<T> other) { throw null; }
         public bool IsProperSupersetOf(System.Collections.Generic.IEnumerable<T> other) { throw null; }
